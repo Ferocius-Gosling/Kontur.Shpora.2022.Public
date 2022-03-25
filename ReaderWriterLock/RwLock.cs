@@ -18,18 +18,17 @@ namespace ReaderWriterLock
             lock (rwLock)
             {
                 while (writersCount > 0)
-                    Monitor.Wait(rwLock); //отпускаем поток ждать. если писателей больше нуля
-                readersCount++; //читатель +1.
+                    Monitor.Wait(rwLock);
+                readersCount++; 
             }
 
             action();
             
-
             lock (rwLock)
             {
-                readersCount--; //вот тут мы прочитали уже.
+                readersCount--; 
                 if (readersCount == 0)
-                    Monitor.PulseAll(rwLock); //просигналили всем потокам, что мы тут закончили.
+                    Monitor.PulseAll(rwLock);
             }
         }
 
@@ -37,9 +36,8 @@ namespace ReaderWriterLock
         {
             lock (rwLock)
             {
-                while (readersCount > 0 || writersCount > 0) // если мы пришли читать или писать,
-                                                   // но кто-то уже пишет или читает, то надо ждать.
-                    Monitor.Wait(rwLock); //то они должны ждать
+                while (readersCount > 0 || writersCount > 0) 
+                    Monitor.Wait(rwLock); 
                 writersCount++;
             }
 
