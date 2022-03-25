@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ReaderWriterLock
 {
@@ -46,8 +42,8 @@ namespace ReaderWriterLock
             lock (rwLock)
             {
                 writersCount--;
-                if (readersCount == 0 && writersCount == 0) // если все закончили свои дела
-                    Monitor.PulseAll(rwLock);   // сигналим
+                if (readersCount == 0 && writersCount == 0)
+                    Monitor.PulseAll(rwLock);
             }
         }
     }
