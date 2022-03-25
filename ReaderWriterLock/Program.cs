@@ -8,9 +8,9 @@ using NUnit.Framework;
 namespace ReaderWriterLock
 {
 	//public class LockTests : RwLockTests<LockWrapper> {}
-	public class ReaderWriterLockSlimTests : RwLockTests<ReaderWriterLockWrapper> {}
+	//public class ReaderWriterLockSlimTests : RwLockTests<ReaderWriterLockWrapper> {}
 
-	//public class RwLockTests : RwLockTests<RwLock> {}
+	public class RwLockTests : RwLockTests<RwLock> {}
 
 	[TestFixture]
 	public abstract class RwLockTests<T> where T : IRwLock, new()
@@ -144,7 +144,7 @@ namespace ReaderWriterLock
 			{
 				if(readers > 0)
 					throw new Exception("Readers not allowed when write lock taken");
-
+				    
 				writeEvent.Set();
 
 				if(Interlocked.Increment(ref writers) > 1)
